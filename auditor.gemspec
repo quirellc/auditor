@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jeff Kunkle"]
   s.homepage    = "http://github.com/nearinfinity/auditor"
-  s.summary     = %q{Rails 3 plugin for auditing access to your ActiveRecord model objects}
+  s.summary     = %q{Rails plugin for auditing access to your ActiveRecord model objects}
   s.description = %q{Auditor allows you to declaratively specify what CRUD operations should be audited and save the audit data to the database.}
   s.license     = "MIT"
 

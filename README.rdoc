@@ -1,5 +1,7 @@
 = Auditor
 
+**Note: This fork has been updated to work up to Rails 4.1.**
+
 Auditor is a Rails plugin for auditing access to your ActiveRecord model objects. It allows you to declaratively specify what CRUD operations should be audited and store that audit data in the database. You can also specify what attributes of model objects should automatically be audited and which ones should be ignored.
 
 To audit your model objects you must specify which operations should be audited and which model attributes should be tracked. This "specify what you want to collect" approach avoids being overwhelmed with data and makes you carefully consider what is most important to audit.
