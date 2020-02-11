@@ -8,7 +8,7 @@ describe Auditor::Config do
       config = Auditor::Config.new(:create, 'update', {:only => :username})
       config.actions.should_not be_nil
       config.options.should_not be_nil
-      config.actions.should have(2).items
+      config.actions.size.should eq(2)
       config.actions.should =~ [:create, :update]
       config.options.should == {:only => ["username"], :except => []}
     end
@@ -16,7 +16,7 @@ describe Auditor::Config do
     it "should parse actions and options from a config array when options are absent" do
       config = Auditor::Config.new(:create, 'update')
       config.actions.should_not be_nil
-      config.actions.should have(2).items
+      config.actions.size.should eq(2)
       config.actions.should =~ [:create, :update]
       config.options.should == {:only => [], :except => []}
     end
@@ -24,7 +24,7 @@ describe Auditor::Config do
     it "should parse actions" do
       config = Auditor::Config.new(:create)
       config.actions.should_not be_nil
-      config.actions.should have(1).item
+      config.actions.size.should eq(1)
       config.actions.should =~ [:create]
       config.options.should == {:only => [], :except => []}
     end
