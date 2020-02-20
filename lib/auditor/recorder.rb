@@ -48,7 +48,7 @@ module Auditor
     end
 
     def noop?(audit)
-      audit.action == :update && !audit.audited_changes.present?
+      audit.action.to_s == 'update' && !audit.audited_changes.present?
     end
   end
 end
