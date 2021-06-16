@@ -12,7 +12,7 @@ if defined?(ActionController) and defined?(ActionController::Base)
   require 'auditor/user'
 
   ActionController::Base.class_eval do
-    before_filter do |c|
+    before_action do |c|
       Auditor::User.current_user = c.send(:current_user) if c.respond_to?(:current_user)
     end
   end

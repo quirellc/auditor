@@ -29,7 +29,7 @@ You will need to run the upgrade migration if coming from a version earlier than
 Auditor needs to know who the current user is, but with no standard for doing so you'll have to do a little work to set things up. You simply need to set your current user model object as the Auditor current user before any CRUD operations are performed. For example, in a Rails application you could add the following to your application_controller.rb
 
   class ApplicationController < ActionController::Base
-    before_filter :set_current_user
+    before_action :set_current_user
     
     private
     
