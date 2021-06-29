@@ -20,7 +20,7 @@ ActiveRecord::Base.establish_connection(connection_spec)
 
 # ActiveRecord::Base.connection.initialize_schema_migrations_table
 
-class CreateUser < ActiveRecord::Migration
+class CreateUser < ActiveRecord::Migration[5.1]
   def self.up
     create_table :users, :force => true do |t|
       t.column :username, :string
@@ -32,7 +32,7 @@ class CreateUser < ActiveRecord::Migration
   end
 end
 
-class CreateModel < ActiveRecord::Migration
+class CreateModel < ActiveRecord::Migration[5.1]
   def self.up
     create_table :models, :force => true do |t|
       t.column :name, :string

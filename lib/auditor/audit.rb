@@ -12,6 +12,7 @@ class Audit < ActiveRecord::Base
   serialize :audited_changes
 
   default_scope lambda { order(:version, :created_at) }
+
   scope :modifying, lambda {
     where( [
       'audited_changes is not ? and audited_changes not like ?',

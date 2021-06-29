@@ -1,4 +1,4 @@
-class UpgradeAuditsTable < ActiveRecord::Migration
+class UpgradeAuditsTable < ActiveRecord::Migration[5.1]
   def self.up
     add_column :audits, :owner_id, :integer
     add_column :audits, :owner_type, :string

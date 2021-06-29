@@ -26,6 +26,7 @@ describe Auditor::Recorder do
     model = Model.create
     model.reload
     model.name = 'changed'
+    model.save!
     config = Auditor::Config.new(action)
 
     recorder = Auditor::Recorder.new(config.options) { 'comment' }
@@ -62,6 +63,7 @@ describe Auditor::Recorder do
     model = Model.create
     model.name = 'changed'
     model.value = 'newval'
+    model.save!
     config = Auditor::Config.new(:create, :except => :name)
 
     recorder = Auditor::Recorder.new(config.options)
@@ -75,6 +77,7 @@ describe Auditor::Recorder do
     model = Model.create
     model.name = 'changed'
     model.value = 'newval'
+    model.save!
     config = Auditor::Config.new(:create, :only => :name)
 
     recorder = Auditor::Recorder.new(config.options)

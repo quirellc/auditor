@@ -110,6 +110,7 @@ describe Auditor::Auditable do
     audit.should_not be_nil
     audit.auditable.should == model unless audit.action == 'destroy'
     audit.user.should == @user
+    audit.reload
     audit.audited_changes.should == changes unless changes.nil?
   end
 

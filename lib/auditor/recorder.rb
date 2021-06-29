@@ -24,7 +24,7 @@ module Auditor
       audit = Audit.new
       audit.auditable_id = model.id
       audit.auditable_type = model.class.name
-      audit.audited_changes = prepare_changes(model.changes) if model.changed?
+      audit.audited_changes = prepare_changes(model.saved_changes) if model.saved_changes?
       audit.action = action
 
       return if noop?(audit)
