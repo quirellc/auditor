@@ -18,4 +18,6 @@ RSpec.configure do |config|
   # == Notes
   #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
+
+  config.expect_with(:rspec) { |c| c.syntax = :should }
 end
