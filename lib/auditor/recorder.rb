@@ -43,7 +43,14 @@ module Auditor
     def changes_for_action(model, action)
       case action.to_s
       when 'destroy'
-        model.serializable_hash if @options.key?(:serialize_on_destroy)
+        serialize_on_destroy = @options[:serialize_on_destroy]
+        return unless serialize_on_destroy
+        attributes = model.serializable_hash
+        if serialize_on_destroy.is_a?(Array)
+          attributes.keep_if { |key, value| serialize_on_destroy.include?(key) }
+        else
+          attributes
+        end
       else
         model.saved_changes if model.saved_changes?
       end
