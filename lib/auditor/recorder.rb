@@ -24,7 +24,7 @@ module Auditor
       audit = Audit.new
       audit.auditable_id = model.id
       audit.auditable_type = model.class.name
-      audit.audited_changes = prepare_changes(model.saved_changes) if model.saved_changes?
+      audit.audited_changes = prepare_changes(changes_for_action(model, action))
       audit.action = action
 
       return if noop?(audit)
@@ -38,6 +38,15 @@ module Auditor
       end
 
       @options[:fail_on_error] ? audit.save! : audit.save
+    end
+
+    def changes_for_action(model, action)
+      case action.to_s
+      when 'destroy'
+        model.serializable_hash if @options.key?(:serialize_on_destroy)
+      else
+        model.saved_changes if model.saved_changes?
+      end
     end
 
     def prepare_changes(changes)
