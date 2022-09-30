@@ -47,7 +47,7 @@ module Auditor
         return unless serialize_on_destroy
         attributes = model.serializable_hash
         if serialize_on_destroy.is_a?(Array)
-          attributes.keep_if { |key, value| serialize_on_destroy.include?(key) }
+          attributes.keep_if { |key, value| serialize_on_destroy.include?(key.to_sym) }
         else
           attributes
         end
