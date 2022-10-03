@@ -44,7 +44,7 @@ module Auditor
       case action.to_s
       when 'destroy'
         serialize_on_destroy = @options[:serialize_on_destroy]
-        return unless serialize_on_destroy
+        return {} unless serialize_on_destroy
         attributes = model.serializable_hash
         if serialize_on_destroy.is_a?(Array)
           attributes.keep_if { |key, value| serialize_on_destroy.include?(key.to_sym) }
@@ -52,7 +52,11 @@ module Auditor
           attributes
         end
       else
-        model.saved_changes if model.saved_changes?
+        if model.saved_changes?
+          model.saved_changes
+        else
+          {}
+        end
       end
     end
 
