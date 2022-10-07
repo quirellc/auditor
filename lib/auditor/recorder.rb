@@ -61,7 +61,7 @@ module Auditor
 
       attributes = model.serializable_hash
       if desired_properties.is_a?(Array)
-        attributes.keep_if { |key, value| serialize_properties.include?(key.to_sym) }
+        attributes.keep_if { |key, value| desired_properties.include?(key.to_sym) }
       else
         attributes
       end
@@ -75,7 +75,7 @@ module Auditor
     end
 
     def noop?(audit)
-      audit.action.to_s == 'update' && !audit.audited_changes.present?
+      audit.action.to_s == 'update' && !audit.audited_changes.present? && !@options.key?(:serialize_on_update)
     end
   end
 end
