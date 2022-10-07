@@ -41,22 +41,29 @@ module Auditor
     end
 
     def changes_for_action(model, action)
+      serialize_properties = @options["serialize_on_#{action}".to_sym]
       case action.to_s
       when 'destroy'
-        serialize_on_destroy = @options[:serialize_on_destroy]
-        return {} unless serialize_on_destroy
-        attributes = model.serializable_hash
-        if serialize_on_destroy.is_a?(Array)
-          attributes.keep_if { |key, value| serialize_on_destroy.include?(key.to_sym) }
-        else
-          attributes
-        end
+        return {} unless serialize_properties
+        filter_changes(model, serialize_properties)
       else
-        if model.saved_changes?
+        updated_attributes = if model.saved_changes?
           model.saved_changes
         else
           {}
         end
+        updated_attributes.merge(filter_changes(model, serialize_properties))
+      end
+    end
+
+    def filter_changes(model, desired_properties)
+      return {} if desired_properties.blank?
+
+      attributes = model.serializable_hash
+      if desired_properties.is_a?(Array)
+        attributes.keep_if { |key, value| serialize_properties.include?(key.to_sym) }
+      else
+        attributes
       end
     end
 
