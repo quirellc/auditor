@@ -18,6 +18,18 @@ module Auditor
     def enable_auditing
       Thread.current[:auditor_disabled] = false
     end
+    
+    def auditor_comment
+      Thread.current[:auditor_comment]
+    end
+
+    def with_auditor_comment(comment)
+      Thread.current[:auditor_comment] = comment
+      yield
+
+    ensure
+      Thread.current[:auditor_comment] = nil
+    end
 
     def without_auditing
       previously_disabled = auditing_disabled?
