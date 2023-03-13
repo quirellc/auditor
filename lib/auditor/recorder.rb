@@ -29,7 +29,7 @@ module Auditor
 
       return if noop?(audit)
 
-      audit.comment = @blk.call(model, user, action) if @blk
+      audit.comment = auditor_comment || (@blk && @blk.call(model, user, action))
 
       without_auditing do
         owner = @options[:on] ? Array(@options[:on]).inject(model) { |owner, parent| owner.send(parent.to_sym) } : model
